@@ -178,6 +178,7 @@ The current repository does not include a committed test module, so the test com
 | Local setup and troubleshooting | [docs/setup.md](docs/setup.md) |
 | API reference, Swagger, and curl examples | [docs/api.md](docs/api.md) |
 | Request/response JSON examples | [docs/api-testing-examples.md](docs/api-testing-examples.md) |
+| GitHub profile README section | [docs/profile-readme-eventhub.md](docs/profile-readme-eventhub.md) |
 | Data model and request flow | [docs/architecture.md](docs/architecture.md) |
 | Deployment, pipelines, and secrets | [docs/deployment.md](docs/deployment.md) |
 | Pipeline troubleshooting and mitigation | [Troubleshooting](#troubleshooting) |
