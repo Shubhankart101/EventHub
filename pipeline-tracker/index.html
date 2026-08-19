@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>EventHub Pipeline Runs</title>
+  <style>
+    :root { color-scheme: light; font-family: system-ui, sans-serif; background: #f4f7fb; color: #152238; }
+    body { max-width: 1100px; margin: 0 auto; padding: 32px 20px; }
+    header { display: flex; justify-content: space-between; gap: 20px; align-items: end; margin-bottom: 24px; }
+    h1 { margin: 0; font-size: clamp(1.8rem, 4vw, 3rem); }
+    .muted { color: #627089; }
+    .filters { display: flex; flex-wrap: wrap; gap: 8px; margin: 18px 0; }
+    button { border: 1px solid #c9d3e3; border-radius: 6px; background: white; padding: 8px 12px; cursor: pointer; }
+    button.active { background: #152238; color: white; border-color: #152238; }
+    .run { background: white; border: 1px solid #d9e1ed; border-left: 5px solid #8a98ad; border-radius: 6px; margin: 12px 0; padding: 16px; }
+    .run.success { border-left-color: #16855b; } .run.failure { border-left-color: #c23b3b; } .run.in_progress { border-left-color: #c58a16; }
+    .run-head { display: flex; justify-content: space-between; gap: 16px; }
+    .run a { color: #145da0; font-weight: 700; text-decoration: none; }
+    .meta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 8px; font-size: .9rem; }
+    .empty { padding: 28px 0; }
+  </style>
+</head>
+<body>
+  <header><div><h1>EventHub Pipeline Runs</h1><div class="muted" id="updated">Loading snapshot...</div></div><div class="muted" id="count"></div></header>
+  <nav class="filters" aria-label="Filter pipeline runs">
+    <button class="active" data-filter="all">All</button><button data-filter="success">Successful</button>
+    <button data-filter="failure">Failed</button><button data-filter="in_progress">Running</button><button data-filter="queued">Queued</button>
+  </nav>
+  <main id="runs"><div class="empty muted">Loading pipeline runs...</div></main>
+<script>
+  const state = { runs: [], filter: 'all' };
+  const labels = { success: 'Successful', failure: 'Failed', in_progress: 'Running', queued: 'Queued', cancelled: 'Cancelled' };
+  const relative = value => { const seconds = Math.round((Date.now() - new Date(value)) / 1000); if (seconds < 60) return `${seconds}s ago`; if (seconds < 3600) return `${Math.round(seconds / 60)}m ago`; return `${Math.round(seconds / 3600)}h ago`; };
+  const runState = run => run.status === 'completed' ? (run.conclusion || 'cancelled') : run.status;
+  const render = () => { const runs = state.runs.filter(run => state.filter === 'all' || runState(run) === state.filter); document.querySelector('#count').textContent = `${runs.length} run${runs.length === 1 ? '' : 's'}`; document.querySelector('#runs').innerHTML = runs.length ? runs.map(run => { const state = runState(run); return `<article class="run ${state}"><div class="run-head"><a href="${run.html_url}" target="_blank" rel="noreferrer">${run.name}</a><strong>${labels[state] || state}</strong></div><div class="meta"><span>${run.head_branch || 'default branch'}</span><span>${run.event}</span><span>${relative(run.created_at)}</span><span>Run #${run.run_number}</span></div></article>`; }).join('') : '<div class="empty muted">No runs match this filter.</div>'; };
+  document.querySelectorAll('button[data-filter]').forEach(button => button.addEventListener('click', () => { document.querySelectorAll('button').forEach(item => item.classList.remove('active')); button.classList.add('active'); state.filter = button.dataset.filter; render(); }));
+  fetch('status-data.json').then(response => response.json()).then(data => { state.runs = data.workflow_runs || []; document.querySelector('#updated').textContent = `Snapshot updated ${new Date().toLocaleString()}`; render(); }).catch(() => { document.querySelector('#updated').textContent = 'Snapshot unavailable. Run the publish-status-board workflow.'; document.querySelector('#runs').innerHTML = '<div class="empty muted">No pipeline snapshot is available yet.</div>'; });
+</script>
+</body>
+</html>

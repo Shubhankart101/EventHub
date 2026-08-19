@@ -1,0 +1,5 @@
+subscription_id     = "00000000-0000-0000-0000-000000000000"
+tenant_id            = "00000000-0000-0000-0000-000000000000"
+app_name             = "eventhub-api-your-suffix"
+django_secret_key    = "replace-with-a-long-random-secret"
+allowed_hosts        = "eventhub-api-your-suffix.azurewebsites.net"

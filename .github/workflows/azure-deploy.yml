@@ -1,0 +1,27 @@
+name: Provision Azure App Service
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: GitHub environment name
+        required: true
+        default: dev
+      terraform_action:
+        description: Terraform action
+        required: true
+        type: choice
+        options: [plan, apply]
+        default: plan
+
+permissions:
+  contents: read
+
+jobs:
+  app-infra:
+    uses: ./.github/workflows/terraform.yml
+    with:
+      environment: ${{ inputs.environment }}
+      terraform_action: ${{ inputs.terraform_action }}
+      working_directory: infra/terraform
+    secrets: inherit
