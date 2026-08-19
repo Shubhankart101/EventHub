@@ -13,6 +13,8 @@ EventHub is a Django REST Framework ticketing API for browsing events, reserving
 <p><strong><a href=".github/workflows/pull-request-tests.yml">Pull Request Tests</a></strong> install dependencies, compile Python, run Django checks, verify migrations, and execute the test command.</p>
 <p><img src="docs/assets/office.gif" width="560" alt="Pipeline checks in progress"></p>
 
+<p><strong><a href=".github/workflows/extended-tests.yml">Extended Manual Tests</a></strong> run the complete validation and test sequence on demand.</p>
+
 ### 2. Test the API interactively
 
 <p><strong><a href="docs/api.md">API Reference</a></strong> documents Event and Reservation routes, while Swagger UI at <code>/api/docs/</code> lets you execute requests from the browser.</p>
@@ -134,6 +136,7 @@ Seat deductions and refunds run inside database transactions with row locking to
 | Workflow | Trigger | Purpose |
 | --- | --- | --- |
 | [Pull Request Tests](.github/workflows/pull-request-tests.yml) | Pull requests and pushes to `main`, excluding Markdown-only changes | Runs compilation, Django checks, migration checks, and the test command |
+| [Extended Manual Tests](.github/workflows/extended-tests.yml) | Manual | Runs the complete Python validation and test sequence with verbose output |
 | [Build, Check, and Deploy EventHub](.github/workflows/app-deploy.yml) | Manual | Validates and deploys the Django package to Azure Web App |
 | [Provision Azure App Service](.github/workflows/azure-deploy.yml) | Manual | Plans or applies Azure hosting infrastructure |
 | [Publish Pipeline Status Board](.github/workflows/publish-status-board.yml) | Manual | Publishes recent Actions runs to GitHub Pages |
@@ -179,6 +182,8 @@ This section covers the common failure modes for EventHub changes and pipeline r
 <img src="docs/assets/pipeline-queued.gif" width="560" alt="Pipeline queued">
 
 Check that the pull request targets `main`, the workflow is enabled, and the change is not Markdown-only. A commit containing both code and Markdown still runs the code workflow.
+
+To run the full suite manually, open **Actions → Extended Manual Tests → Run workflow**, choose the Python version, and start the workflow.
 
 ### Dependency, Django, or schema checks fail
 

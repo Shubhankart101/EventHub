@@ -9,6 +9,7 @@ EventHub uses manual GitHub Actions workflows and modular Terraform to host the 
 | Workflow | Trigger | Purpose |
 | --- | --- | --- |
 | [Pull Request Tests](../.github/workflows/pull-request-tests.yml) | Pull requests to `main` and pushes to `main`, excluding Markdown-only changes | Installs dependencies, compiles Python, runs Django checks, verifies migrations, and runs the test command |
+| [Extended Manual Tests](../.github/workflows/extended-tests.yml) | Manual | Runs the complete Python validation and test sequence with verbose output |
 | [Build, Check, and Deploy EventHub](../.github/workflows/app-deploy.yml) | Manual | Repeats application validation and deploys the package to Azure Web App |
 | [Publish Pipeline Status Board](../.github/workflows/publish-status-board.yml) | Manual | Captures recent Actions runs and publishes the tracker to GitHub Pages |
 
@@ -23,12 +24,13 @@ The current repository does not include a committed test module, so the applicat
 
 ## Recommended order
 
-1. Configure the GitHub `dev` environment secrets.
-2. Run **Provision Azure App Service** with `terraform_action=plan`.
-3. Review the Terraform plan.
-4. Run the same workflow with `terraform_action=apply`.
-5. Run **Build, Check, and Deploy EventHub** and provide the Azure Web App name if it is not stored as a secret.
-6. Run **Publish Pipeline Status Board** after enabling GitHub Pages with **GitHub Actions** as its source.
+1. Run **Extended Manual Tests** and confirm the complete validation sequence passes.
+2. Configure the GitHub `dev` environment secrets.
+3. Run **Provision Azure App Service** with `terraform_action=plan`.
+4. Review the Terraform plan.
+5. Run the same workflow with `terraform_action=apply`.
+6. Run **Build, Check, and Deploy EventHub** and provide the Azure Web App name if it is not stored as a secret.
+7. Run **Publish Pipeline Status Board** after enabling GitHub Pages with **GitHub Actions** as its source.
 
 <img src="assets/crazy-dance-funny-dance.gif" width="560" alt="Deployment complete">
 
