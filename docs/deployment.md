@@ -30,7 +30,7 @@ The current repository does not include a committed test module, so the applicat
 4. Review the Terraform plan.
 5. Run the same workflow with `terraform_action=apply`.
 6. Run **Build, Check, and Deploy EventHub** and provide the Azure Web App name if it is not stored as a secret.
-7. Run **Publish Pipeline Status Board** after enabling GitHub Pages with **GitHub Actions** as its source.
+7. Have a repository administrator enable GitHub Pages with **GitHub Actions** as its source, then run **Publish Pipeline Status Board**.
 
 <img src="assets/crazy-dance-funny-dance.gif" width="560" alt="Deployment complete">
 

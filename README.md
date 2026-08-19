@@ -228,7 +228,7 @@ Check `AZURE_WEBAPP_NAME` and `AZURE_PUBLISH_PROFILE`, confirm the publish profi
 
 ### Pipeline board is stale or empty
 
-The publisher is manual-only. Run `Publish Pipeline Status Board` again and confirm GitHub Pages uses **GitHub Actions** as its source. The workflow requests Pages enablement automatically; if `configure-pages` still reports `Get Pages site failed`, a repository administrator must enable Pages once under **Settings → Pages**. The workflow must generate `status-data.json` and copy `pipeline-tracker/index.html` plus `docs/assets/` into the Pages artifact.
+The publisher is manual-only. A repository administrator must first enable GitHub Pages under **Settings → Pages** with **GitHub Actions** as the source; the repository token cannot create the Pages site. Then run `Publish Pipeline Status Board`. The workflow must generate `status-data.json` and copy `pipeline-tracker/index.html` plus `docs/assets/` into the Pages artifact.
 
 <img src="docs/assets/pipeline-running.gif" width="560" alt="Pipeline status is still running">
 
