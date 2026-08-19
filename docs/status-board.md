@@ -4,7 +4,7 @@ The `Publish Pipeline Status Board` workflow publishes the latest 100 EventHub G
 
 ## First-time setup
 
-1. In repository settings, enable GitHub Pages with **GitHub Actions** as the source.
+1. In repository settings, enable GitHub Pages with **GitHub Actions** as the source. The workflow also requests Pages enablement automatically.
 2. Run `Publish Pipeline Status Board` from the Actions tab.
 3. Open the Pages URL shown in the completed workflow.
 
@@ -37,7 +37,7 @@ Run the workflow again whenever you need a fresh snapshot. If the board reports 
 ## If the dashboard stops
 
 1. Inspect the latest `Publish Pipeline Status Board` run in the Actions tab.
-2. If `configure-pages` fails, enable Pages with GitHub Actions as the source.
+2. If `configure-pages` still reports `Get Pages site failed`, open **Settings → Pages**, choose **GitHub Actions** as the source, and save once. The repository administrator may need to perform this one-time enablement.
 3. If upload or deployment fails, inspect the step log and rerun the workflow.
 4. If the site returns 404, confirm the workflow copied `pipeline-tracker/index.html` to the artifact root.
 5. Confirm `status-data.json` was generated before the Pages artifact was uploaded.
