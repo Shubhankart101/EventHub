@@ -146,6 +146,7 @@ The current repository does not include a committed test module, so the test com
 | --- | --- |
 | Local setup and troubleshooting | [docs/setup.md](docs/setup.md) |
 | API reference, Swagger, and curl examples | [docs/api.md](docs/api.md) |
+| Request/response JSON examples | [docs/api-testing-examples.md](docs/api-testing-examples.md) |
 | Data model and request flow | [docs/architecture.md](docs/architecture.md) |
 | Deployment, pipelines, and secrets | [docs/deployment.md](docs/deployment.md) |
 | Pipeline troubleshooting and mitigation | [Troubleshooting](#troubleshooting) |
@@ -225,30 +226,6 @@ Check `AZURE_WEBAPP_NAME` and `AZURE_PUBLISH_PROFILE`, confirm the publish profi
 The publisher is manual-only. Run `Publish Pipeline Status Board` again and confirm GitHub Pages uses **GitHub Actions** as its source. The workflow must generate `status-data.json` and copy `pipeline-tracker/index.html` plus `docs/assets/` into the Pages artifact.
 
 <img src="docs/assets/pipeline-running.gif" width="560" alt="Pipeline status is still running">
-
-## Example
-
-```json
-POST /api/events/
-{
-	"title": "PyCon India 2026",
-	"venue": "Bangalore Convention Centre",
-	"date": "2026-09-20",
-	"total_seats": 500,
-	"available_seats": 500,
-	"status": "upcoming"
-}
-```
-
-```json
-POST /api/reservations/
-{
-	"event": 1,
-	"attendee_name": "Priya Sharma",
-	"attendee_email": "priya@example.com",
-	"seats_reserved": 2
-}
-```
 
 ## Tests
 
