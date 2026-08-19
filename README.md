@@ -2,6 +2,34 @@
 
 EventHub is a Django REST Framework ticketing API for browsing events, reserving seats, and cancelling reservations. It includes Swagger-based endpoint testing, transaction-safe seat updates, manual GitHub Actions pipelines, modular Azure infrastructure, and a GitHub Pages pipeline tracker.
 
+<p align="center">
+	<img src="docs/assets/devtrack-code-loop.gif" width="560" alt="EventHub API development workflow">
+</p>
+
+<p align="center">
+	<strong>Browse events. Reserve seats safely. Track every deployment.</strong>
+</p>
+
+<p align="center">
+	<a href="https://github.com/Shubhankart101/EventHub/actions">Pipeline runs</a> ·
+	<a href="docs/api.md">API reference</a> ·
+	<a href="docs/api-testing-examples.md">Request examples</a> ·
+	<a href="docs/architecture.md">Architecture</a>
+</p>
+
+## At A Glance
+
+| Capability | What EventHub provides |
+| --- | --- |
+| Event management | Create, browse, update, filter, and delete events |
+| Seat reservations | Reserve seats with availability validation and row locking |
+| Cancellation | Cancel a reservation and restore its seats atomically |
+| API exploration | Interactive Swagger UI and generated OpenAPI schema |
+| Delivery | Manual GitHub Actions checks and Azure App Service deployment |
+| Visibility | GitHub Actions pipeline tracker with status GIF filters |
+
+> Run locally with `python manage.py runserver`, then open `http://127.0.0.1:8000/api/docs/` to try the API.
+
 <p align="center"><a href="eventhub/urls.py">API routes and Swagger entrypoints</a></p>
 <p align="center"><a href=".github/workflows/terraform.yml">Reusable Terraform template</a></p>
 <p align="center"><a href=".github/workflows/publish-status-board.yml">Publish pipeline status board</a></p>
