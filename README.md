@@ -148,7 +148,7 @@ The current repository does not include a committed test module, so the test com
 | API reference, Swagger, and curl examples | [docs/api.md](docs/api.md) |
 | Data model and request flow | [docs/architecture.md](docs/architecture.md) |
 | Deployment, pipelines, and secrets | [docs/deployment.md](docs/deployment.md) |
-| Pipeline troubleshooting and mitigation | [docs/README.md](docs/README.md) |
+| Pipeline troubleshooting and mitigation | [Troubleshooting](#troubleshooting) |
 | Pipeline status board | [docs/status-board.md](docs/status-board.md) |
 
 ## CI/CD and Hosting
@@ -156,6 +156,75 @@ The current repository does not include a committed test module, so the test com
 The repository includes manual GitHub Actions workflows for pull request checks, Azure App Service provisioning, application deployment, and publishing the pipeline status board. See [infra/terraform/README.md](infra/terraform/README.md) for Azure setup and [docs/status-board.md](docs/status-board.md) for the tracker.
 
 The hosting workflow provisions a Linux Azure Web App and starts Django with Gunicorn after applying migrations. Configure the required GitHub environment secrets before running an `apply` or deployment workflow.
+
+## Troubleshooting
+
+This section covers the common failure modes for EventHub changes and pipeline runs.
+
+<img src="docs/assets/office.gif" width="560" alt="Pipeline troubleshooting">
+
+### Quick decision table
+
+| Change set | Automatic behavior | Manual workflow |
+| --- | --- | --- |
+| Python, Django, API, or migration code | Pull request and main push validation runs | `app-deploy.yml` for a full build and deployment |
+| Only Markdown documentation | Path-filtered validation is skipped | Run a workflow manually if validation is needed |
+| Code plus Markdown | Validation runs because code changed | Use the normal application workflow sequence |
+| Terraform infrastructure | No automatic infrastructure apply | `azure-deploy.yml` with `plan` or `apply` |
+| Pipeline tracker or workflow files | Workflow behavior may need a manual run | `publish-status-board.yml` or the affected workflow |
+
+### Workflow does not start
+
+<img src="docs/assets/pipeline-queued.gif" width="560" alt="Pipeline queued">
+
+Check that the pull request targets `main`, the workflow is enabled, and the change is not Markdown-only. A commit containing both code and Markdown still runs the code workflow.
+
+### Dependency, Django, or schema checks fail
+
+Reproduce locally:
+
+```powershell
+python -m pip install --upgrade pip
+pip install -r requirements.txt
+python manage.py check
+python manage.py makemigrations --check --dry-run
+python manage.py spectacular --validate
+```
+
+Review imports, settings, URL routes, migrations, and OpenAPI serializer annotations.
+
+<img src="docs/assets/bounce-dwight.gif" width="560" alt="Pipeline work in progress">
+
+### Reservation behavior is rejected
+
+Verify that the event exists, has `upcoming` or `ongoing` status, and has enough `available_seats`. A cancelled reservation cannot be cancelled twice.
+
+### Terraform plan fails
+
+<img src="docs/assets/eyebrow-raise-dwight.gif" width="560" alt="Review Terraform plan">
+
+Run from `infra/terraform`:
+
+```powershell
+terraform fmt -recursive
+terraform init
+terraform validate
+terraform plan
+```
+
+Confirm the Azure secrets exist in the selected GitHub environment and review the plan before applying it.
+
+### App deployment fails
+
+Check `AZURE_WEBAPP_NAME` and `AZURE_PUBLISH_PROFILE`, confirm the publish profile belongs to the same Web App, and inspect Azure deployment logs. The startup command runs migrations before Gunicorn.
+
+<img src="docs/assets/tired-office.gif" width="560" alt="Inspect runtime logs when deployment fails">
+
+### Pipeline board is stale or empty
+
+The publisher is manual-only. Run `Publish Pipeline Status Board` again and confirm GitHub Pages uses **GitHub Actions** as its source. The workflow must generate `status-data.json` and copy `pipeline-tracker/index.html` plus `docs/assets/` into the Pages artifact.
+
+<img src="docs/assets/pipeline-running.gif" width="560" alt="Pipeline status is still running">
 
 ## Example
 
