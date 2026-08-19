@@ -1,5 +1,7 @@
 # Architecture
 
+<img src="assets/atg-studiocapa.gif" width="560" alt="EventHub architecture review">
+
 ## Project structure
 
 The core Django application follows this structure:
@@ -53,6 +55,8 @@ Events are ordered by date. Reservations are ordered newest first.
 ## Seat consistency
 
 The reservation serializer uses `transaction.atomic()` and `select_for_update()` so concurrent requests do not both spend the same available seats. Cancellation uses the same transaction and row-locking approach to prevent a reservation from refunding its seats twice.
+
+<img src="assets/eyebrow-raise-dwight.gif" width="560" alt="Review seat consistency carefully">
 
 ## Validation rules
 

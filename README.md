@@ -11,22 +11,27 @@ EventHub is a Django REST Framework ticketing API for browsing events, reserving
 ### 1. Validate application changes
 
 <p><strong><a href=".github/workflows/pull-request-tests.yml">Pull Request Tests</a></strong> install dependencies, compile Python, run Django checks, verify migrations, and execute the test command.</p>
+<p><img src="docs/assets/office.gif" width="560" alt="Pipeline checks in progress"></p>
 
 ### 2. Test the API interactively
 
 <p><strong><a href="docs/api.md">API Reference</a></strong> documents Event and Reservation routes, while Swagger UI at <code>/api/docs/</code> lets you execute requests from the browser.</p>
+<p><img src="docs/assets/devtrack-code-loop.gif" width="560" alt="API development workflow"></p>
 
 ### 3. Provision hosting
 
 <p><strong><a href=".github/workflows/azure-deploy.yml">Provision Azure App Service</a></strong> runs the modular Terraform plan or apply workflow.</p>
+<p><img src="docs/assets/eyebrow-raise-dwight.gif" width="560" alt="Review infrastructure plan carefully"></p>
 
 ### 4. Build and deploy
 
 <p><strong><a href=".github/workflows/app-deploy.yml">Build, Check, and Deploy EventHub</a></strong> validates the source and deploys it to Azure Linux Web App.</p>
+<p><img src="docs/assets/great-job.gif" width="560" alt="Successful application deployment"></p>
 
 ### 5. Track pipeline runs
 
 <p><strong><a href=".github/workflows/publish-status-board.yml">Publish Pipeline Status Board</a></strong> publishes the latest GitHub Actions snapshot to GitHub Pages.</p>
+<p><img src="docs/assets/pipeline-success.gif" width="560" alt="Successful pipeline status"></p>
 
 ## Contents
 

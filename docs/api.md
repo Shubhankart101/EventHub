@@ -4,6 +4,8 @@ Base URL: `http://127.0.0.1:8000/api/`
 
 Interactive documentation is available at [`/api/docs/`](http://127.0.0.1:8000/api/docs/). The machine-readable schema is available at [`/api/schema/`](http://127.0.0.1:8000/api/schema/).
 
+<img src="assets/devtrack-code-loop.gif" width="560" alt="EventHub API workflow">
+
 ## Event endpoints
 
 | Method | Endpoint | Description |
@@ -96,3 +98,5 @@ curl -X POST http://127.0.0.1:8000/api/reservations/1/cancel/
 ## Pipeline verification
 
 After changing an endpoint, run `python manage.py check`, inspect the OpenAPI schema, and use the [pipeline status board](status-board.md) to review the related GitHub Actions run.
+
+<img src="assets/great-job.gif" width="560" alt="Successful API verification">

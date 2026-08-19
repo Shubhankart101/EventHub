@@ -1,5 +1,7 @@
 # Deployment
 
+<img src="assets/hell-yeah-yeah.gif" width="560" alt="Deployment ready to run">
+
 EventHub uses manual GitHub Actions workflows and modular Terraform to host the Django API on Azure Linux App Service. The pipeline status board is published separately through GitHub Pages.
 
 ## Application pipelines
@@ -27,6 +29,8 @@ The current repository does not include a committed test module, so the applicat
 4. Run the same workflow with `terraform_action=apply`.
 5. Run **Build, Check, and Deploy EventHub** and provide the Azure Web App name if it is not stored as a secret.
 6. Run **Publish Pipeline Status Board** after enabling GitHub Pages with **GitHub Actions** as its source.
+
+<img src="assets/crazy-dance-funny-dance.gif" width="560" alt="Deployment complete">
 
 ## Required secrets
 
@@ -66,6 +70,24 @@ python manage.py migrate --noinput && gunicorn --bind=0.0.0.0 --timeout 600 even
 
 The deployment package includes `requirements.txt`; Azure build automation installs the Python dependencies. HTTPS-only access is enabled by Terraform.
 
+<img src="assets/tired-office.gif" width="560" alt="Inspect runtime logs when deployment fails">
+
 ## Branch protection
 
 Configure `main` to require pull requests and the `Pull Request Tests / test` status check. The workflow cannot enforce branch protection by itself.
+
+## Pipeline GIF gallery
+
+<img src="assets/the-office-the-office-memes.gif" width="560" alt="Pipeline reaction">
+
+<img src="assets/pond-naravit-ppnaravit.gif" width="560" alt="Unexpected pipeline result">
+
+<img src="assets/thats-what-she-said-what-she-said.gif" width="560" alt="Pipeline review reaction">
+
+<img src="assets/the-office-the-office-memes.gif" width="560" alt="Pipeline team reaction">
+
+<img src="assets/pipeline-queued.gif" width="560" alt="Pipeline queued">
+
+<img src="assets/pipeline-running.gif" width="560" alt="Pipeline running">
+
+<img src="assets/pipeline-success.gif" width="560" alt="Pipeline passed">

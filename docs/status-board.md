@@ -10,6 +10,8 @@ The `Publish Pipeline Status Board` workflow publishes the latest 100 EventHub G
 
 The board uses a token-free published `status-data.json` snapshot. Selecting a run opens the corresponding GitHub Actions run page.
 
+<img src="assets/pipeline-success.gif" width="560" alt="Successful pipeline run">
+
 ## Local development
 
 Open PowerShell at the repository root and run:
@@ -25,6 +27,8 @@ Stop the server with `Ctrl+C`.
 ## Status filters
 
 Use the buttons to filter all, successful, failed, running, or queued runs. Each run shows its workflow name, branch, event, timestamp, run number, and direct GitHub Actions link.
+
+The status buttons use the same visual cues as the DevTrack board: `pipeline-success.gif` for successful runs, `office.gif` for failed runs, `pipeline-running.gif` for running runs, and `pipeline-queued.gif` for queued runs.
 
 ## Refreshing the board
 

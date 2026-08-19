@@ -1,5 +1,7 @@
 # Pipeline troubleshooting guide
 
+<img src="assets/office.gif" width="560" alt="Pipeline troubleshooting">
+
 This guide explains what should run for each kind of EventHub change and how to recover when a workflow fails. Workflow paths are relative to the repository root.
 
 ## Quick decision table
@@ -16,9 +18,13 @@ This guide explains what should run for each kind of EventHub change and how to 
 
 ### Workflow does not start
 
+<img src="assets/pipeline-queued.gif" width="560" alt="Pipeline queued">
+
 Check that the pull request targets `main`, the workflow is enabled, and the change is not Markdown-only. A commit containing both code and Markdown still runs the code workflow.
 
 ### Dependency installation fails
+
+<img src="assets/bounce-dwight.gif" width="560" alt="Pipeline work in progress">
 
 Reproduce locally:
 
@@ -62,6 +68,8 @@ Confirm the selected GitHub environment contains `AZURE_SUBSCRIPTION_ID`, `AZURE
 
 ### Terraform plan fails
 
+<img src="assets/eyebrow-raise-dwight.gif" width="560" alt="Review Terraform plan">
+
 Install Terraform 1.8.5 locally and run from `infra/terraform`:
 
 ```powershell
@@ -96,6 +104,8 @@ Open repository **Settings → Pages**, select **GitHub Actions** as the source,
 Run the publisher once so it creates `status-data.json` in the published artifact. The board uses the authenticated snapshot generated during the workflow and does not expose a personal access token in browser code.
 
 ### Board is stale
+
+<img src="assets/pipeline-running.gif" width="560" alt="Pipeline status is still running">
 
 The publisher is manual-only. Run it again after workflow or tracker changes. Open the GitHub Actions run link shown by the publisher if the artifact upload or Pages deployment failed.
 

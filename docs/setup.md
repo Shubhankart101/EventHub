@@ -1,5 +1,7 @@
 # Local development setup
 
+<img src="assets/devtrack-code-loop.gif" width="560" alt="EventHub development setup">
+
 ## Prerequisites
 
 - Python 3.12 or newer

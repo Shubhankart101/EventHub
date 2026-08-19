@@ -11,7 +11,8 @@
     h1 { margin: 0; font-size: clamp(1.8rem, 4vw, 3rem); }
     .muted { color: #627089; }
     .filters { display: flex; flex-wrap: wrap; gap: 8px; margin: 18px 0; }
-    button { border: 1px solid #c9d3e3; border-radius: 6px; background: white; padding: 8px 12px; cursor: pointer; }
+    button { display: inline-flex; align-items: center; gap: 8px; border: 1px solid #c9d3e3; border-radius: 6px; background: white; padding: 8px 12px; cursor: pointer; }
+    button img { width: 42px; height: 30px; object-fit: cover; border-radius: 3px; }
     button.active { background: #152238; color: white; border-color: #152238; }
     .run { background: white; border: 1px solid #d9e1ed; border-left: 5px solid #8a98ad; border-radius: 6px; margin: 12px 0; padding: 16px; }
     .run.success { border-left-color: #16855b; } .run.failure { border-left-color: #c23b3b; } .run.in_progress { border-left-color: #c58a16; }
@@ -24,8 +25,11 @@
 <body>
   <header><div><h1>EventHub Pipeline Runs</h1><div class="muted" id="updated">Loading snapshot...</div></div><div class="muted" id="count"></div></header>
   <nav class="filters" aria-label="Filter pipeline runs">
-    <button class="active" data-filter="all">All</button><button data-filter="success">Successful</button>
-    <button data-filter="failure">Failed</button><button data-filter="in_progress">Running</button><button data-filter="queued">Queued</button>
+    <button class="active" data-filter="all">All</button>
+    <button data-filter="success"><img src="assets/pipeline-success.gif" alt="">Successful</button>
+    <button data-filter="failure"><img src="assets/office.gif" alt="">Failed</button>
+    <button data-filter="in_progress"><img src="assets/pipeline-running.gif" alt="">Running</button>
+    <button data-filter="queued"><img src="assets/pipeline-queued.gif" alt="">Queued</button>
   </nav>
   <main id="runs"><div class="empty muted">Loading pipeline runs...</div></main>
 <script>
