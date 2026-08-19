@@ -37,7 +37,7 @@ Run the workflow again whenever you need a fresh snapshot. If the board reports 
 ## If the dashboard stops
 
 1. Inspect the latest `Publish Pipeline Status Board` run in the Actions tab.
-2. If `configure-pages` reports `Get Pages site failed`, confirm that the Pages setting was saved and rerun the workflow. The repository administrator must perform this one-time enablement.
+2. If `Verify GitHub Pages is enabled` fails, or `configure-pages` reports `Get Pages site failed`, an administrator must open **Settings → Pages**, select **GitHub Actions** as the source, save, and rerun the workflow.
 3. If upload or deployment fails, inspect the step log and rerun the workflow.
 4. If the site returns 404, confirm the workflow copied `pipeline-tracker/index.html` to the artifact root.
 5. Confirm `status-data.json` was generated before the Pages artifact was uploaded.
