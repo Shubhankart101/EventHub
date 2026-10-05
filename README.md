@@ -94,7 +94,7 @@ python manage.py spectacular --validate
 python manage.py test
 ```
 
-The repository currently has no committed test module, so the test command reports zero discovered tests.
+`events/tests.py` covers event filtering and validation, reservation creation and rejection rules, cancellation refunds, and two threaded concurrency tests proving that simultaneous bookings cannot spend the same seats and simultaneous cancellations refund only once.
 
 ## Project structure
 
@@ -157,7 +157,7 @@ Open `http://127.0.0.1:8000/api/docs/`, select **Try it out**, provide request d
 
 Filter events with `?status=upcoming` and/or `?venue=hall`. Filter reservations with `?event_id=1`.
 
-Seat deductions and refunds run inside database transactions with row locking to prevent overbooking and double refunds.
+Seat deductions and refunds run inside database transactions with row locking to prevent overbooking and double refunds. On SQLite, which ignores `select_for_update()`, transactions start with `BEGIN IMMEDIATE` so competing writers queue instead of failing.
 
 ## Application pipelines
 
@@ -169,7 +169,7 @@ Seat deductions and refunds run inside database transactions with row locking to
 | [Provision Azure App Service](.github/workflows/azure-deploy.yml) | Manual | Plans or applies Azure hosting infrastructure |
 | [Publish Pipeline Status Board](.github/workflows/publish-status-board.yml) | Manual | Publishes recent Actions runs to GitHub Pages |
 
-The current repository does not include a committed test module, so the test command currently discovers zero tests. Add focused API tests before treating a green run as full behavioral coverage.
+The test command runs the behavioral and concurrency suite in `events/tests.py`.
 
 ## Documentation
 

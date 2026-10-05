@@ -56,6 +56,8 @@ Events are ordered by date. Reservations are ordered newest first.
 
 The reservation serializer uses `transaction.atomic()` and `select_for_update()` so concurrent requests do not both spend the same available seats. Cancellation uses the same transaction and row-locking approach to prevent a reservation from refunding its seats twice.
 
+SQLite does not support `select_for_update()`, so the database is configured with `transaction_mode: IMMEDIATE`: every `atomic()` block takes the write lock at `BEGIN`, and a competing booking waits (up to the 20-second timeout) and then sees the updated seat count. Without this, the losing request fails with `database is locked` (HTTP 500). `ConcurrentReservationTests` in `events/tests.py` covers both booking and cancellation races.
+
 <img src="assets/eyebrow-raise-dwight.gif" width="560" alt="Review seat consistency carefully">
 
 ## Validation rules

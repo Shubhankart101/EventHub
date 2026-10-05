@@ -13,7 +13,7 @@ EventHub uses manual GitHub Actions workflows and modular Terraform to host the 
 | [Build, Check, and Deploy EventHub](../.github/workflows/app-deploy.yml) | Manual | Repeats application validation and deploys the package to Azure Web App |
 | [Publish Pipeline Status Board](../.github/workflows/publish-status-board.yml) | Manual | Captures recent Actions runs and publishes the tracker to GitHub Pages |
 
-The current repository does not include a committed test module, so the application workflows currently execute Django's test command with zero discovered tests. Add tests before treating a green run as full behavioral coverage.
+The test command runs `events/tests.py`, including the threaded seat-concurrency tests, so a green run now reflects behavioral coverage of the API.
 
 ## Infrastructure pipeline
 

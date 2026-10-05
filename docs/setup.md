@@ -43,9 +43,10 @@ python manage.py migrate
 ```bash
 python manage.py check
 python manage.py makemigrations --check --dry-run
+python manage.py test
 ```
 
-The project currently has no committed test module, so `python manage.py test` completes with zero tests. Add focused API tests before requiring a test-count gate in CI.
+The concurrency tests use real threads, so the test database is a temporary file (`test_db.sqlite3`) rather than in-memory SQLite. It is removed after the run.
 
 ## 5. Start the API
 

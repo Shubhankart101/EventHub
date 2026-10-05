@@ -55,6 +55,10 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
+        # SQLite ignores select_for_update(); IMMEDIATE takes the write lock at BEGIN so bookings queue.
+        'OPTIONS': {'transaction_mode': 'IMMEDIATE', 'timeout': 20},
+        # Concurrency tests use real threads, which cannot share an in-memory database.
+        'TEST': {'NAME': BASE_DIR / 'test_db.sqlite3'},
     }
 }
 
